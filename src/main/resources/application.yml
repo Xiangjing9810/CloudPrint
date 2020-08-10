@@ -1,0 +1,57 @@
+# 默认使用配置
+spring:
+  profiles:
+    active: dev,common
+
+#端口，项目上下文根
+server:
+    port: 8080
+    servlet:
+      context-path: /cloudprint/api
+      session:
+        timeout: PT20M
+    tomcat:
+      uri-encoding: utf-8
+    max-http-header-size: 8192
+
+mybatis:
+  mapper-locations : classpath:mappers/*.xml
+  type-aliases-package: com.xj.cloudprint.entity
+logging:
+  level:
+    com.xj.cloudprint.mapper: DEBUG
+---
+# 开发环境配置
+spring:
+  profiles: dev
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/wechat?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false&serverTimezone=UTC
+    username: root
+    password: root
+
+cloudPrint:
+  fileUploadPath:
+    F:\springUpload
+  Host:
+    47.100.29.189
+  coverPath:
+    http://tmp/
+
+---
+# 测试环境配置
+spring:
+  profiles: test
+  datasource:
+    url: jdbc:mysql:://127.0.0.1:3306/wechat?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false&serverTimezone=UTC
+    username: cloudprint
+    password: rm-uf6b11m36bzbp9jc9125010
+#
+cloudPrint:
+  fileUploadPath:
+    /www/cloudprint/UploadFile
+  Host:
+    localhost
+  coverPath:
+    wxfile://
+
+---

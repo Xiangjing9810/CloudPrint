@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xj.cloudprint.mapper.UserFileMapper" >
+  <resultMap id="BaseResultMap" type="com.xj.cloudprint.entity.UserFile" >
+    <id column="file_id" property="fileId" jdbcType="VARCHAR" />
+    <result column="user_openid" property="userOpenid" jdbcType="VARCHAR" />
+    <result column="file_name" property="fileName" jdbcType="VARCHAR" />
+    <result column="is_Shared" property="isShared" jdbcType="CHAR" />
+    <result column="file_path" property="filePath" jdbcType="VARCHAR" />
+    <result column="file_type" property="fileType" jdbcType="VARCHAR" />
+    <result column="file_state" property="fileState" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    file_id, user_openid, file_name, is_Shared, file_path, file_type, file_state
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  select
+  <include refid="Base_Column_List" />
+  from user_file
+  where file_id = #{fileId,jdbcType=VARCHAR}
+</select>
+  <select id="selectBySelective" resultMap="BaseResultMap" parameterType="com.xj.cloudprint.entity.UserFile" >
+    select
+    <include refid="Base_Column_List" />
+    from user_file
+    <where>
+      <if test="userOpenid != null and userOpenid.length()>0">
+        user_openid= #{userOpenid,jdbcType=VARCHAR}
+      </if>
+      <if test="fileName != null and fileName.length()>0">
+        AND file_name = #{fileName, jdbcType=VARCHAR}
+      </if>
+      <if test="isShared != null and isShared.length()>0">
+        AND  is_Shared= #{isShared,jdbcType=CHAR}
+      </if>
+      <if test="filePath != null and filePath.length()>0">
+        AND file_path = #{filePath, jdbcType=VARCHAR}
+      </if>
+      <if test="fileType != null and fileType.length()>0">
+        AND file_type = #{fileType, jdbcType=VARCHAR}
+      </if>
+      <if test="fileState != null and fileState.length()>0">
+        AND file_state = #{fileState, jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from user_file
+    where file_id = #{fileId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xj.cloudprint.entity.UserFile" >
+    insert into user_file (file_id, user_openid, file_name, 
+      is_Shared, file_path, file_type, 
+      file_state)
+    values (#{fileId,jdbcType=VARCHAR}, #{userOpenid,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, 
+      #{isShared,jdbcType=CHAR}, #{filePath,jdbcType=VARCHAR}, #{fileType,jdbcType=VARCHAR}, 
+      #{fileState,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xj.cloudprint.entity.UserFile" >
+    insert into user_file
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fileId != null" >
+        file_id,
+      </if>
+      <if test="userOpenid != null" >
+        user_openid,
+      </if>
+      <if test="fileName != null" >
+        file_name,
+      </if>
+      <if test="isShared != null" >
+        is_Shared,
+      </if>
+      <if test="filePath != null" >
+        file_path,
+      </if>
+      <if test="fileType != null" >
+        file_type,
+      </if>
+      <if test="fileState != null" >
+        file_state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fileId != null" >
+        #{fileId,jdbcType=VARCHAR},
+      </if>
+      <if test="userOpenid != null" >
+        #{userOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null" >
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="isShared != null" >
+        #{isShared,jdbcType=CHAR},
+      </if>
+      <if test="filePath != null" >
+        #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="fileType != null" >
+        #{fileType,jdbcType=VARCHAR},
+      </if>
+      <if test="fileState != null" >
+        #{fileState,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xj.cloudprint.entity.UserFile" >
+    update user_file
+    <set >
+      <if test="userOpenid != null" >
+        user_openid = #{userOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null" >
+        file_name = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="isShared != null" >
+        is_Shared = #{isShared,jdbcType=CHAR},
+      </if>
+      <if test="filePath != null" >
+        file_path = #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="fileType != null" >
+        file_type = #{fileType,jdbcType=VARCHAR},
+      </if>
+      <if test="fileState != null" >
+        file_state = #{fileState,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where file_id = #{fileId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xj.cloudprint.entity.UserFile" >
+    update user_file
+    set user_openid = #{userOpenid,jdbcType=VARCHAR},
+      file_name = #{fileName,jdbcType=VARCHAR},
+      is_Shared = #{isShared,jdbcType=CHAR},
+      file_path = #{filePath,jdbcType=VARCHAR},
+      file_type = #{fileType,jdbcType=VARCHAR},
+      file_state = #{fileState,jdbcType=VARCHAR}
+    where file_id = #{fileId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xj.cloudprint.mapper.SocketFileMapper" >
+  <resultMap id="BaseResultMap" type="com.xj.cloudprint.entity.SocketFile" >
+    <id column="socket_fileId" property="socketFileid" jdbcType="VARCHAR" />
+    <result column="file_name" property="fileName" jdbcType="VARCHAR" />
+    <result column="file_copies" property="fileCopies" jdbcType="INTEGER" />
+    <result column="file_ranges" property="fileRanges" jdbcType="VARCHAR" />
+    <result column="file_state" property="fileState" jdbcType="VARCHAR" />
+    <result column="ftp_filePath" property="ftpFilepath" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    socket_fileId, file_name, file_copies, file_ranges, file_state, ftp_filePath
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from socket_file
+    where socket_fileId = #{socketFileid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from socket_file
+    where socket_fileId = #{socketFileid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xj.cloudprint.entity.SocketFile" >
+    insert into socket_file (socket_fileId, file_name, file_copies, 
+      file_ranges, file_state, ftp_filePath
+      )
+    values (#{socketFileid,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, #{fileCopies,jdbcType=INTEGER}, 
+      #{fileRanges,jdbcType=VARCHAR}, #{fileState,jdbcType=VARCHAR}, #{ftpFilepath,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xj.cloudprint.entity.SocketFile" >
+    insert into socket_file
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="socketFileid != null" >
+        socket_fileId,
+      </if>
+      <if test="fileName != null" >
+        file_name,
+      </if>
+      <if test="fileCopies != null" >
+        file_copies,
+      </if>
+      <if test="fileRanges != null" >
+        file_ranges,
+      </if>
+      <if test="fileState != null" >
+        file_state,
+      </if>
+      <if test="ftpFilepath != null" >
+        ftp_filePath,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="socketFileid != null" >
+        #{socketFileid,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null" >
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileCopies != null" >
+        #{fileCopies,jdbcType=INTEGER},
+      </if>
+      <if test="fileRanges != null" >
+        #{fileRanges,jdbcType=VARCHAR},
+      </if>
+      <if test="fileState != null" >
+        #{fileState,jdbcType=VARCHAR},
+      </if>
+      <if test="ftpFilepath != null" >
+        #{ftpFilepath,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xj.cloudprint.entity.SocketFile" >
+    update socket_file
+    <set >
+      <if test="fileName != null" >
+        file_name = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileCopies != null" >
+        file_copies = #{fileCopies,jdbcType=INTEGER},
+      </if>
+      <if test="fileRanges != null" >
+        file_ranges = #{fileRanges,jdbcType=VARCHAR},
+      </if>
+      <if test="fileState != null" >
+        file_state = #{fileState,jdbcType=VARCHAR},
+      </if>
+      <if test="ftpFilepath != null" >
+        ftp_filePath = #{ftpFilepath,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where socket_fileId = #{socketFileid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xj.cloudprint.entity.SocketFile" >
+    update socket_file
+    set file_name = #{fileName,jdbcType=VARCHAR},
+      file_copies = #{fileCopies,jdbcType=INTEGER},
+      file_ranges = #{fileRanges,jdbcType=VARCHAR},
+      file_state = #{fileState,jdbcType=VARCHAR},
+      ftp_filePath = #{ftpFilepath,jdbcType=VARCHAR}
+    where socket_fileId = #{socketFileid,jdbcType=VARCHAR}
+  </update>
+</mapper>
